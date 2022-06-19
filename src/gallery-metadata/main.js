@@ -28,7 +28,8 @@ function createGalleryPageDownloadLink() {
 
 	const info = getGalleryInfo();
 	if (info === null) { return; }
-	const filename = info.titleOriginal + " [" + info.identifier.id.toString() + "].json";
+	var filename = `${info.titleOriginal} [${info.identifier.id.toString()}].json`;
+	filename = filename.replace(/[\\\/:\*\?"<>\|]/g, "").replace(/\s+/, " ").replace(/^\s+|\s+$/, "");
 
 	link.setAttribute("download", filename);
 	link.href = "#";
