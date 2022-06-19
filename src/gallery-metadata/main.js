@@ -26,7 +26,11 @@ function createGalleryPageDownloadLink() {
 	const link = galleryRightSidebar.createLink("Metadata JSON", 0).link;
 	if (link === null) { return; }
 
-	link.setAttribute("download", "info.json");
+	const info = getGalleryInfo();
+	if (info === null) { return; }
+	const filename = info.titleOriginal + " [" + info.identifier.id.toString() + "].json";
+
+	link.setAttribute("download", filename);
 	link.href = "#";
 
 	link.addEventListener("click", onDownloadLinkClicked, false);
@@ -44,7 +48,7 @@ function getGalleryInfo() {
 
 function createDownloadDataUrl(info) {
 	const infoString = JSON.stringify(info, null, "  ");
-	const blob = new Blob([ infoString ], { type: "application/json" });
+	const blob = new Blob([infoString], { type: "application/json" });
 	return URL.createObjectURL(blob);
 }
 
@@ -93,7 +97,7 @@ function getGalleryIdentifierFromTorrentPageUrl(url) {
 function isValidInfo(info, identifier) {
 	const g = info.gallery;
 	return (
-		g !== null && typeof(g) === "object" &&
+		g !== null && typeof (g) === "object" &&
 		g.gid === identifier.id &&
 		g.token === identifier.token);
 }
@@ -135,10 +139,10 @@ function main() {
 	switch (currentPageType) {
 		case "gallery":
 			setupGalleryPage();
-		break;
+			break;
 		case "torrentInfo":
 			setupTorrentPage();
-		break;
+			break;
 	}
 }
 

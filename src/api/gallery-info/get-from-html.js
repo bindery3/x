@@ -85,7 +85,7 @@ function getUploader(html) {
 	if (node === null) { return null; }
 
 	const pattern = /^.*?\/\/.+?\/(.*?)(\?.*?)?(#.*?)?$/;
-	const match = pattern.exec(node.getAttribute("href") || "");
+	const match = pattern.exec(decodeURI(node.getAttribute("href")) || "");
 	return (match !== null ? (match[1].split("/")[1] || "") : null);
 }
 
