@@ -28,8 +28,10 @@ function createGalleryPageDownloadLink() {
 
 	const info = getGalleryInfo();
 	if (info === null) { return; }
-	var filename = `${info.titleOriginal} [${info.identifier.id.toString()}].json`;
-	filename = filename.replace(/[\\\/:\*\?"<>\|]/g, "").replace(/\s+/, " ").replace(/^\s+|\s+$/, "");
+
+	const title = info.titleOriginal == "" ? info.title : info.titleOriginal;
+	var filename = `${title} [${info.identifier.id.toString()}].json`;
+	filename = filename.replace(/[\\\/:\*\?"<>\|]/g, "").replace(/\s+/g, " ").replace(/^\s+|\s+$/, "");
 
 	link.setAttribute("download", filename);
 	link.href = "#";
